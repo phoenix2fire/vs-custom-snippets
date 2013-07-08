@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+
+        <Header>
+            <Title>GetByID method for DAC classes</Title>
+            <Shortcut>dacGetByID</Shortcut>
+            <Description>
+                Code snippet for surrounding/expanding a section of code with a DAC class
+            </Description>
+            <Author>Abhishek Bussa</Author>
+            <SnippetTypes>
+                <SnippetType>SurroundsWith</SnippetType>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>dacEntity</ID>
+                    <ToolTip>Name of DTO</ToolTip>
+                    <Default>DummyEntityDTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterName</ID>
+                    <ToolTip>Replace this with name of parameter</ToolTip>
+                    <Default>dummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>resourceNameSpace</ID>
+                    <ToolTip>Replace this with the namespace of your resource enums</ToolTip>
+                    <Default>Dummy</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterComment</ID>
+                    <ToolTip>Replace this with the details of parameter </ToolTip>
+                    <Default>About the parameter</Default>
+                </Literal>
+                <Literal>
+                    <ID>methodComment</ID>
+                    <Default>the instance of dummyDTO by ID</Default>
+                </Literal>
+                <Literal>
+                    <ID>module</ID>
+                    <ToolTip>Replace with the name of the current module</ToolTip>
+                    <Default>Admin</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnTypeComment</ID>
+                    <ToolTip>Replace with the return type comment</ToolTip>
+                    <Default>Returns the added instance of DTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnValue</ID>
+                    <ToolTip>Replace with the return value</ToolTip>
+                    <Default>returnValue</Default>
+                </Literal>
+            </Declarations>
+            <Code Language="CSharp">
+                <![CDATA[ 
+        /// <summary>
+        /// Function To Get $methodComment$
+        /// </summary>
+        /// <param name="$parameterName$">$parameterComment$</param>
+        /// <returns>$returnTypeComment$</returns>
+        public I$dacEntity$ GetByID(int $parameterName$)
+        {
+            I$dacEntity$ $returnValue$ = null;
+            using (IDatabase database = DatabaseFactory.CreateDatabase())
+            {
+                try
+                {
+                    // Create databse connection here
+                    database.Connect();
+                    //Prepare the Command
+                    database.CreateDBCommand($resourceNameSpace$DBConstants.Procedures.$resourceNameSpace$GetByID, CommandType.StoredProcedure);
+                    //Add and Create the Parameters Here
+                    $end$
+                    //Execute and Fetch the DataSet 
+                    database.ExecuteReader(CommandBehavior.Default);
+                    //Build the User Object Here
+                    if (database.DBReader.Read())
+                    {
+                        $returnValue$ = this.CreateDTO<I$dacEntity$>();
+                        //Set the Variable Data
+                        
+                    }
+                    //Return the object here
+                    return $returnValue$;
+                }
+                catch (Exception ex)
+                {
+                    Core.Instance.GetService<IExceptionHandlerService>().HandleException(ex);
+                    throw new DACException(Module.$module$ModuleInstance.GetResource($resourceNameSpace$Resource.ExceptionMessages.$resourceNameSpace$_ExceptionMessage_GetByID_Error.ToString()), ex);
+                }
+            }
+        }
+       ]]>
+            </Code>
+        </Snippet>
+
+    </CodeSnippet>
+</CodeSnippets>

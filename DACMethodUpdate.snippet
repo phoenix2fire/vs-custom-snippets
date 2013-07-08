@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+
+        <Header>
+            <Title>Update method for DAC classes</Title>
+            <Shortcut>dacUpdate</Shortcut>
+            <Description>
+                Code snippet for surrounding/expanding a section of code with a DAC class
+            </Description>
+            <Author>Abhishek Bussa</Author>
+            <SnippetTypes>
+                <SnippetType>SurroundsWith</SnippetType>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>dacEntity</ID>
+                    <ToolTip>Name of DTO</ToolTip>
+                    <Default>DummyEntityDTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterName</ID>
+                    <ToolTip>Replace this with name of parameter</ToolTip>
+                    <Default>dummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>resourceNameSpace</ID>
+                    <ToolTip>Replace this with the namespace of your resource enums</ToolTip>
+                    <Default>Dummy</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterComment</ID>
+                    <ToolTip>Replace this with the details of parameter </ToolTip>
+                    <Default>About the parameter</Default>
+                </Literal>
+                <Literal>
+                    <ID>methodComment</ID>
+                    <Default>instance of dummyDTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>module</ID>
+                    <ToolTip>Replace with the name of the current module</ToolTip>
+                    <Default>Admin</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnTypeComment</ID>
+                    <ToolTip>Replace with the return type comment</ToolTip>
+                    <Default>Returns the added instance of DTO</Default>
+                </Literal>
+            </Declarations>
+            <Code Language="CSharp">
+                <![CDATA[ 
+        /// <summary>
+        /// Method to update $methodComment$
+        /// </summary>
+        /// <param name="$parameterName$">$parameterComment$</param>
+        /// <returns>$returnTypeComment$</returns>
+        public I$dacEntity$DTO Update(I$dacEntity$DTO $parameterName$)
+        {
+            using (IDatabase database = DatabaseFactory.CreateDatabase())
+            {
+                try
+                {
+                    // Create databse connection here
+                    database.Connect();
+                    //Prepare the Command
+                    database.CreateDBCommand($resourceNameSpace$DBConstants.Procedures.Update$resourceNameSpace$, CommandType.StoredProcedure);
+                    //Create the OUT Parameter
+                    $selected$$end$                    
+                    //Create the IN Parameter 
+                    return $parameterName$;
+                }
+                catch (Exception ex)
+                {
+                    //Rollback the transaction here
+                    database.Rollback();
+                    Core.Instance.GetService<IExceptionHandlerService>().HandleException(ex);
+                    throw new DACException(Module.$module$ModuleInstance.GetResource($resourceNameSpace$Resource.ExceptionMessage.$resourceNameSpace$_ExceptionMessage_Update_Error.ToString()), ex);
+                }
+            }
+        }
+       ]]>
+            </Code>
+        </Snippet>
+
+    </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+
+        <Header>
+            <Title>Checking operation result's result type</Title>
+            <Shortcut>opResultCheck</Shortcut>
+            <Description>
+                Code snippet for surrounding/expanding a section of code
+            </Description>
+            <Author>Abhishek Bussa</Author>
+            <SnippetTypes>
+                <SnippetType>SurroundsWith</SnippetType>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>parameterName</ID>
+                    <ToolTip>Replace this with name of object</ToolTip>
+                    <Default>dummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>label</ID>
+                    <ToolTip>Server error label</ToolTip>
+                    <Default>lblServerMessage</Default>
+                </Literal>
+                <Literal>
+                    <ID>pageType</ID>
+                    <ToolTip>Page type of the page containing this control</ToolTip>
+                    <Default>SomePageType</Default>
+                </Literal>
+                <Literal>
+                    <ID>module</ID>
+                    <ToolTip>Replace with the name of the current module</ToolTip>
+                    <Default>Admin</Default>
+                </Literal>
+            </Declarations>
+            <Code Language="CSharp">
+                <![CDATA[ 
+            if ($parameterName$.ResultType == OperationResultType.Success)
+            {
+                $selected$$end$
+            }
+            else if($parameterName$.ResultType == OperationResultType.Failure)
+            {
+                $label$.Text = $parameterName$.Message;
+                $label$.CssClass = CommonResource.CommonCSS.ErrorMessage.ToString();
+            }
+            else if ($parameterName$.ResultType == OperationResultType.Error)
+            {
+                (($module$Master)this.Master).SetExceptionMessage($module$PageType.$pageType$, $parameterName$.Message, $parameterName$.StackTrace);
+            }
+       ]]>
+            </Code>
+        </Snippet>
+
+    </CodeSnippet>
+</CodeSnippets>

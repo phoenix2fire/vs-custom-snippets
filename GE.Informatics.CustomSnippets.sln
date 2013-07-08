@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomSnippets", "CustomSnippets", "{5F4770DA-6286-4901-83BD-CE012BB5FF06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DACSnippets", "DACSnippets", "{E32D47BB-B082-4266-BC71-95BF92E021C4}"
+	ProjectSection(SolutionItems) = preProject
+		DACClass.snippet = DACClass.snippet
+		DACGetAll.snippet = DACGetAll.snippet
+		DacInterface.snippet = DacInterface.snippet
+		DACMethodAdd.Snippet = DACMethodAdd.Snippet
+		DACMethodDelete.snippet = DACMethodDelete.snippet
+		DACMethodGetByID.snippet = DACMethodGetByID.snippet
+		DACMethodUpdate.snippet = DACMethodUpdate.snippet
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BDCSnippets", "BDCSnippets", "{2B85F43B-8A01-4A05-8636-E3CCA11B1359}"
+	ProjectSection(SolutionItems) = preProject
+		BDCClass.snippet = BDCClass.snippet
+		BDCInterface.snippet = BDCInterface.snippet
+		BDCMethodAdd.snippet = BDCMethodAdd.snippet
+		BDCMethodDelete.snippet = BDCMethodDelete.snippet
+		BDCMethodGetAll.snippet = BDCMethodGetAll.snippet
+		BDCMethodGetByID.snippet = BDCMethodGetByID.snippet
+		BDCMethodUpdate.snippet = BDCMethodUpdate.snippet
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FacadeSnippets", "FacadeSnippets", "{9BCC1ADD-C6AA-4537-AE2B-EBD8C07CC2BC}"
+	ProjectSection(SolutionItems) = preProject
+		FacadeClass.snippet = FacadeClass.snippet
+		facadeInterface.snippet = facadeInterface.snippet
+		FacadeMethodAdd.snippet = FacadeMethodAdd.snippet
+		FacadeMethodDelete.snippet = FacadeMethodDelete.snippet
+		FacadeMethodGetAll.snippet = FacadeMethodGetAll.snippet
+		FacadeMethodGetByID.snippet = FacadeMethodGetByID.snippet
+		FacadeMethodUpdate.snippet = FacadeMethodUpdate.snippet
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GenericSnippets", "GenericSnippets", "{5D37CDA0-A553-4DE4-93C3-3E58972A1F03}"
+	ProjectSection(SolutionItems) = preProject
+		OperationResultChecking.snippet = OperationResultChecking.snippet
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DTOSnippets", "DTOSnippets", "{1BF0FE27-EE36-48B0-94DC-9F4C6C567B15}"
+	ProjectSection(SolutionItems) = preProject
+		DTOClass.snippet = DTOClass.snippet
+		DTOInterface.snippet = DTOInterface.snippet
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E32D47BB-B082-4266-BC71-95BF92E021C4} = {5F4770DA-6286-4901-83BD-CE012BB5FF06}
+		{2B85F43B-8A01-4A05-8636-E3CCA11B1359} = {5F4770DA-6286-4901-83BD-CE012BB5FF06}
+		{9BCC1ADD-C6AA-4537-AE2B-EBD8C07CC2BC} = {5F4770DA-6286-4901-83BD-CE012BB5FF06}
+		{5D37CDA0-A553-4DE4-93C3-3E58972A1F03} = {5F4770DA-6286-4901-83BD-CE012BB5FF06}
+		{1BF0FE27-EE36-48B0-94DC-9F4C6C567B15} = {5F4770DA-6286-4901-83BD-CE012BB5FF06}
+	EndGlobalSection
+EndGlobal

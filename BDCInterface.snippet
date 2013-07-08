@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+
+        <Header>
+            <Title>Contract for BDC classes</Title>
+            <Shortcut>bdcInterface</Shortcut>
+            <Description>
+                Code snippet for surrounding/expanding a section of code
+            </Description>
+            <Author>Abhishek Bussa</Author>
+            <SnippetTypes>
+                <SnippetType>SurroundsWith</SnippetType>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>bdcEntity</ID>
+                    <ToolTip>Name of DTO</ToolTip>
+                    <Default>DummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>interfaceComment</ID>
+                    <Default>some class in BDC</Default>
+                </Literal>
+                <Literal>
+                    <ID>module</ID>
+                    <ToolTip>Replace with the name of the current module</ToolTip>
+                    <Default>Admin</Default>
+                </Literal>
+            </Declarations>
+            <Code Language="CSharp">
+                <![CDATA[ 
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using System.Text;
+            using GE.Informatics.XDK;
+
+            namespace GE.Informatics.$module$.Manifest
+            {
+                /// <summary>
+                /// Contract for $interfaceComment$
+                /// </summary>
+                [QualifiedTypeName("GE.Informatics.$module$.dll", "GE.Informatics.$module$.Business.$bdcEntity$BDC")]    
+                public interface I$bdcEntity$BDC: IBusinessDomainComponent
+                {
+                    $selected$$end$
+                }
+            }
+       ]]>
+            </Code>
+        </Snippet>
+
+    </CodeSnippet>
+</CodeSnippets>

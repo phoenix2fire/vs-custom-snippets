@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+
+        <Header>
+            <Title>GetAll method for DAC classes</Title>
+            <Shortcut>dacGetAll</Shortcut>
+            <Description>
+                Code snippet for surrounding/expanding a section of code with a DAC class
+            </Description>
+            <Author>Abhishek Bussa</Author>
+            <SnippetTypes>
+                <SnippetType>SurroundsWith</SnippetType>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>dacEntity</ID>
+                    <ToolTip>Name of DTO</ToolTip>
+                    <Default>DummyEntityDTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterName</ID>
+                    <ToolTip>Replace this with name of parameter</ToolTip>
+                    <Default>dummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>resourceNameSpace</ID>
+                    <ToolTip>Replace this with the namespace of your resource enums</ToolTip>
+                    <Default>Dummy</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterComment</ID>
+                    <ToolTip>Replace this with the details of parameter </ToolTip>
+                    <Default>About the parameter</Default>
+                </Literal>
+                <Literal>
+                    <ID>methodComment</ID>
+                    <Default>the instance of dummyDTO by ID</Default>
+                </Literal>
+                <Literal>
+                    <ID>module</ID>
+                    <ToolTip>Replace with the name of the current module</ToolTip>
+                    <Default>Admin</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnTypeComment</ID>
+                    <ToolTip>Replace with the return type comment</ToolTip>
+                    <Default>Returns the added instance of DTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnValue</ID>
+                    <ToolTip>Replace with the return value</ToolTip>
+                    <Default>returnValue</Default>
+                </Literal>
+                <Literal>
+                    <ID>eachEntity</ID>
+                    <ToolTip>Replace with the object name of each instance</ToolTip>
+                    <Default>eachvalue</Default>
+                </Literal>
+            </Declarations>
+            <Code Language="CSharp">
+                <![CDATA[ 
+        /// <summary>
+        /// Get all $methodComment$ 
+        /// </summary>
+        /// <param name="$parameterName$"></param>
+        /// <param name="pageIndex">Page Index</param>
+        /// <param name="pageSize">Page Size</param>
+        /// <param name="sortColumn">Sort Column Name</param>
+        /// <param name="sortDirection">Sort Direction</param>
+        /// <returns></returns>
+        public IEntityListDTO<I$dacEntity$DTO> GetAll(int $parameterName$, int pageIndex, int pageSize, string sortColumn, string sortDirection)
+        {
+            IEntityListDTO<I$dacEntity$DTO> $returnValue$ = this.CreateDTO<IEntityListDTO<I$dacEntity$DTO>>();
+            using (IDatabase database = DatabaseFactory.CreateDatabase())
+            {
+                try
+                {
+                    database.Connect();
+                    database.CreateDBCommand($resourceNameSpace$DBConstants.Procedures.$resourceNameSpace$GetAll, CommandType.StoredProcedure);
+                    database.AddParameter($resourceNameSpace$DBConstants.Parameters.PageSize, DbType.Int32, pageSize);
+                    database.AddParameter($resourceNameSpace$DBConstants.Parameters.PageIndex, DbType.Int32, pageIndex);
+                    database.AddParameter($resourceNameSpace$DBConstants.Parameters.SortColumn, DbType.String, sortColumn);
+                    database.AddParameter($resourceNameSpace$DBConstants.Parameters.SortDirection, DbType.String, sortDirection);
+                    database.AddOutParameter($resourceNameSpace$DBConstants.Parameters.TotalRows, DbType.Int32);
+                    database.ExecuteReader(CommandBehavior.Default);
+                    while (database.DBReader.Read())
+                    {
+                        I$dacEntity$DTO $eachEntity$ = Create$dacEntity$(database.DBReader);
+                        $returnValue$.Add($eachEntity$);
+                    }
+                    database.DBReader.Close();
+                    $returnValue$.TotalRowCount = database.GetOutputParameterValue<Int32>($resourceNameSpace$DBConstants.Parameters.TotalRows);
+                    $returnValue$.PageIndex = pageIndex;
+                    $returnValue$.PageSize = pageSize;
+                    if (pageIndex != -1)
+                    {
+                        $returnValue$.IsPaged = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Core.Instance.GetService<IExceptionHandlerService>().HandleException(ex);
+                    throw new DACException(Module.$module$ModuleInstance.GetResource($resourceNameSpace$Resource.ExceptionMessage.$resourceNameSpace$_GetAll_Exception.ToString()), ex);
+                }
+            }
+            return $returnValue$;
+        }
+       ]]>
+            </Code>
+        </Snippet>
+
+    </CodeSnippet>
+</CodeSnippets>

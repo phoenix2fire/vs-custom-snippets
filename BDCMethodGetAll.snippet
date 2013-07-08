@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+
+        <Header>
+            <Title>GetALL method for BDC classes</Title>
+            <Shortcut>bdcGetAll</Shortcut>
+            <Description>
+                Code snippet for surrounding/expanding a section of code with a BDC class
+            </Description>
+            <Author>Abhishek Bussa</Author>
+            <SnippetTypes>
+                <SnippetType>SurroundsWith</SnippetType>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>bdcEntity</ID>
+                    <ToolTip>Name of DTO</ToolTip>
+                    <Default>DummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterName</ID>
+                    <ToolTip>Replace this with name of parameter</ToolTip>
+                    <Default>dummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>resourceNameSpace</ID>
+                    <ToolTip>Replace this with the namespace of your resource enums</ToolTip>
+                    <Default>Dummy</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterComment</ID>
+                    <ToolTip>Replace this with the details of parameter </ToolTip>
+                    <Default>About the parameter</Default>
+                </Literal>
+                <Literal>
+                    <ID>methodComment</ID>
+                    <Default>all instances of dummyDTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>module</ID>
+                    <ToolTip>Replace with the name of the current module</ToolTip>
+                    <Default>Admin</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnTypeComment</ID>
+                    <ToolTip>Replace with the return type comment</ToolTip>
+                    <Default>Returns the added instance of DTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>bdcName</ID>
+                    <ToolTip>Replace with the DTO name</ToolTip>
+                    <Default>entity</Default>
+                </Literal>
+            </Declarations>
+            <Code Language="CSharp">
+                <![CDATA[ 
+        /// <summary>
+        /// Get $methodComment$
+        /// </summary>
+        /// <param name="$parameterName$"></param>
+        /// <param name="pageIndex">Page Index</param>
+        /// <param name="pageSize">Page Size</param>
+        /// <param name="rowCount">Row Count</param>
+        /// <returns>$returnTypeComment$</returns>
+        public OperationResult<IEntityListDTO<I$bdcEntity$DTO>> GetAll$bdcEntity$(int $parameterName$, int pageIndex, int pageSize, string sortColumn, string orderBy)
+        {
+            OperationResult<IEntityListDTO<I$bdcEntity$DTO>> result = null;
+            try
+            {
+                I$bdcEntity$DAC $bdcName$DAC = this.CreateDAC<I$bdcEntity$DAC>();
+                IEntityListDTO<I$bdcEntity$DTO> $bdcName$List = $bdcName$DAC.GetAll($parameterName$, pageIndex, pageSize, sortColumn, orderBy);
+                result = OperationResult<IEntityListDTO<I$bdcEntity$DTO>>.CreateSuccessResult($bdcName$List, Module.$module$ModuleInstance.GetResource($resourceNameSpace$Resource.Messages.$resourceNameSpace$_Messages_GetAll$bdcEntity$_Success.ToString()));
+            }
+            catch (DACException dacEx)
+            {
+                result = OperationResult<IEntityListDTO<I$bdcEntity$DTO>>.CreateErrorResult(Common.CreateErrorMessage(dacEx.Message, dacEx.InnerException), dacEx.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                Core.Instance.GetService<IExceptionHandlerService>().HandleException(ex);
+                result = OperationResult<IEntityListDTO<I$bdcEntity$DTO>>.CreateErrorResult(Common.CreateErrorMessage(ex.Message, ex.InnerException), ex.StackTrace);
+            }
+            return result;
+        }
+       ]]>
+            </Code>
+        </Snippet>
+
+    </CodeSnippet>
+</CodeSnippets>

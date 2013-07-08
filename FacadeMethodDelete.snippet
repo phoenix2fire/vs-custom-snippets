@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+
+        <Header>
+            <Title>Delete method for BDC classes</Title>
+            <Shortcut>facadeDelete</Shortcut>
+            <Description>
+                Code snippet for surrounding/expanding a section of code with a facade class
+            </Description>
+            <Author>Abhishek Bussa</Author>
+            <SnippetTypes>
+                <SnippetType>SurroundsWith</SnippetType>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+
+        <Snippet>
+            <Declarations>
+                <Literal>
+                    <ID>facadeEntity</ID>
+                    <ToolTip>Name of DTO</ToolTip>
+                    <Default>DummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterName</ID>
+                    <ToolTip>Replace this with name of parameter</ToolTip>
+                    <Default>dummyEntity</Default>
+                </Literal>
+                <Literal>
+                    <ID>parameterComment</ID>
+                    <ToolTip>Replace this with the details of parameter </ToolTip>
+                    <Default>About the parameter</Default>
+                </Literal>
+                <Literal>
+                    <ID>methodComment</ID>
+                    <Default>some dummyDTO</Default>
+                </Literal>
+                <Literal>
+                    <ID>returnTypeComment</ID>
+                    <ToolTip>Replace with the return type comment</ToolTip>
+                    <Default>Returns the operation result of delete operation</Default>
+                </Literal>
+                <Literal>
+                    <ID>facadeName</ID>
+                    <ToolTip>Replace with the DTO name</ToolTip>
+                    <Default>entity</Default>
+                </Literal>
+            </Declarations>
+            <Code Language="CSharp">
+                <![CDATA[ 
+        
+        /// <summary>
+        /// Method To Delete $methodComment$
+        /// </summary>
+        /// <param name="$parameterName$">$parameterComment$</param>
+        /// <returns>$returnTypeComment$</returns>
+        public OperationResult<bool> Delete$facadeEntity$(int $parameterName$)
+        {
+            I$facadeEntity$BDC $facadeName$BDC = this.CreateBDC<I$facadeEntity$BDC>();
+            return $facadeName$BDC.Delete$facadeEntity$($parameterName$);
+        }
+       ]]>
+            </Code>
+        </Snippet>
+
+    </CodeSnippet>
+</CodeSnippets>
